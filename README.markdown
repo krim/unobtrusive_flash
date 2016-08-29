@@ -98,7 +98,7 @@ By default, Unobtrusive Flash only displays the three "default" Rails flash type
 ```ruby
 class ApplicationController
   def unobtrusive_flash_keys
-    super << "success"
+    super << :success
   end
 end
 ```

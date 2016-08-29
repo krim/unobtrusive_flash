@@ -31,9 +31,8 @@ module UnobtrusiveFlash
 
     # List of all flash keys that will be displayed on the frontend. Override
     # this method if you use more flash types.
-    # Note that these keys must be strings, not symbols
     def unobtrusive_flash_keys
-      %w(notice alert error)
+      [:notice, :alert, :error]
     end
 
     class << self
@@ -41,7 +40,7 @@ module UnobtrusiveFlash
       # flash - value of `flash` controller attribute
       # displayable_flash_keys - list of flash keys that will be displayed
       def sanitize_flash(flash, displayable_flash_keys)
-        displayable_flash = flash.select { |key, value| displayable_flash_keys.include?(key) }
+        displayable_flash = flash.select { |key, value| displayable_flash_keys.include?(key.to_sym) }
         displayable_flash.map do |key, value|
           html_safe_value = value.html_safe? ? value : ERB::Util.html_escape(value)
           [key, html_safe_value]
